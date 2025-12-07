@@ -34,10 +34,10 @@ async function stickerCommand(sock, chatId, message) {
             text: 'Please reply to an image/video with .sticker, or send an image/video with .sticker as the caption.',
             contextInfo: {
                 forwardingScore: 999,
-                isForwarded: true,
+                isForwarded: false,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '1',
+                    newsletterName: '',
                     serverMessageId: -1
                 }
             }
@@ -56,10 +56,10 @@ async function stickerCommand(sock, chatId, message) {
                 text: 'Failed to download media. Please try again.',
                 contextInfo: {
                     forwardingScore: 999,
-                    isForwarded: true,
+                    isForwarded: false,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD',
+                        newsletterJid: '',
+                        newsletterName: '',
                         serverMessageId: -1
                     }
                 }
@@ -151,7 +151,7 @@ async function stickerCommand(sock, chatId, message) {
         // Create metadata
         const json = {
             'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-            'sticker-pack-name': settings.packname || 'KnightBot',
+            'sticker-pack-name': settings.packname || 'CYBER X BOT',
             'emojis': ['🤖']
         };
 
@@ -214,10 +214,10 @@ async function stickerCommand(sock, chatId, message) {
             text: 'Failed to create sticker! Try again later.',
             contextInfo: {
                 forwardingScore: 999,
-                isForwarded: true,
+                isForwarded: false,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '',
+                    newsletterName: 'CYBER X BOT',
                     serverMessageId: -1
                 }
             }
