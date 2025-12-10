@@ -147,10 +147,10 @@ async function startXeonBotInc() {
                         text: '❌ An error occurred while processing your message.',
                         contextInfo: {
                             forwardingScore: 1,
-                            isForwarded: true,
+                            isForwarded: false,
                             forwardedNewsletterMessageInfo: {
-                                newsletterJid: '120363161513685998@newsletter',
-                                newsletterName: 'KnightBot MD',
+                                newsletterJid: '',
+                                newsletterName: 'CYBER X BOT',
                                 serverMessageId: -1
                             }
                         }
@@ -256,7 +256,7 @@ async function startXeonBotInc() {
                     text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
                     contextInfo: {
                         forwardingScore: 1,
-                        isForwarded: true,
+                        isForwarded: falae,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: '',
                             newsletterName: '',
