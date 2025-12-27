@@ -259,7 +259,7 @@ async function startXeonBotInc() {
                     text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
                     contextInfo: {
                         forwardingScore: 1,
-                        isForwarded: falae,
+                        isForwarded: false,
                         forwardedNewsletterMessageInfo: {
                             newsletterJid: '',
                             newsletterName: '',
