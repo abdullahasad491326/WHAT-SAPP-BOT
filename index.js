@@ -1,3 +1,6 @@
+const crypto = require("crypto");
+global.crypto = crypto;
+
 require('./settings')
 const { Boom } = require('@hapi/boom')
 const fs = require('fs')
