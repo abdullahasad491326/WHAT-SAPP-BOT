@@ -38,10 +38,12 @@ const { join } = require('path')
 
 const store = require('./lib/lightweight_store')
 
+// Initialize store
 store.readFromFile()
 const settings = require('./settings')
 setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10000)
 
+// Memory optimization
 setInterval(() => {
     if (global.gc) {
         global.gc()
@@ -49,6 +51,7 @@ setInterval(() => {
     }
 }, 60_000)
 
+// Memory monitoring
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024
     if (used > 400) {
@@ -106,13 +109,14 @@ async function startXeonBotInc() {
         XeonBotInc.ev.on('creds.update', saveCreds)
         store.bind(XeonBotInc.ev)
 
+        // Message Handling
         XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
             try {
                 const mek = chatUpdate.messages[0]
                 if (!mek.message) return
                 mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
                 
-                // Add Log to see incoming messages in Railway
+                // Debug Log for Railway
                 console.log(`[MSG] From: ${mek.key.remoteJid} | User: ${mek.pushName || 'Unknown'} | Type: ${Object.keys(mek.message)[0]}`)
 
                 if (mek.key && mek.key.remoteJid === 'status@broadcast') {
@@ -136,8 +140,7 @@ async function startXeonBotInc() {
             }
         })
 
-        // ... (rest of the file remains standard) ...
-
+        // Helper Functions
         XeonBotInc.decodeJid = (jid) => {
             if (!jid) return jid
             if (/:\d+@/gi.test(jid)) {
@@ -174,6 +177,7 @@ async function startXeonBotInc() {
         XeonBotInc.public = true
         XeonBotInc.serializeM = (m) => smsg(XeonBotInc, m, store)
 
+        // Pairing Code Logic
         if (pairingCode && !XeonBotInc.authState.creds.registered) {
             if (useMobile) throw new Error('Cannot use pairing code with mobile api')
             let phoneNumber
@@ -199,6 +203,7 @@ async function startXeonBotInc() {
             }, 3000)
         }
 
+        // Connection Handling
         XeonBotInc.ev.on('connection.update', async (s) => {
             const { connection, lastDisconnect, qr } = s
             if (qr) console.log(chalk.yellow('📱 QR Code generated.'))
@@ -214,7 +219,7 @@ async function startXeonBotInc() {
                         text: `🤖 BOT CONNECTED Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
                         contextInfo: {
                             forwardingScore: 1,
-                            isForwarded: false, // FIXED: Changed 'falae' to 'false'
+                            isForwarded: false, // Corrected typo here
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '',
                                 newsletterName: '',
@@ -247,7 +252,35 @@ async function startXeonBotInc() {
             }
         })
 
-        // ... (Call and Group handlers remain same) ...
+        // Anti-Call Logic
+        const antiCallNotified = new Set();
+        XeonBotInc.ev.on('call', async (calls) => {
+            try {
+                const { readState: readAnticallState } = require('./commands/anticall');
+                const state = readAnticallState();
+                if (!state.enabled) return;
+                for (const call of calls) {
+                    const callerJid = call.from || call.peerJid || call.chatId;
+                    if (!callerJid) continue;
+                    try {
+                        if (typeof XeonBotInc.rejectCall === 'function' && call.id) {
+                            await XeonBotInc.rejectCall(call.id, callerJid);
+                        } else if (typeof XeonBotInc.sendCallOfferAck === 'function' && call.id) {
+                            await XeonBotInc.sendCallOfferAck(call.id, callerJid, 'reject');
+                        }
+                        if (!antiCallNotified.has(callerJid)) {
+                            antiCallNotified.add(callerJid);
+                            setTimeout(() => antiCallNotified.delete(callerJid), 60000);
+                            await XeonBotInc.sendMessage(callerJid, { text: '📵 Anticall is enabled. You will be blocked.' });
+                        }
+                    } catch {}
+                    setTimeout(async () => {
+                        try { await XeonBotInc.updateBlockStatus(callerJid, 'block'); } catch {}
+                    }, 800);
+                }
+            } catch (e) {}
+        });
+
         XeonBotInc.ev.on('group-participants.update', async (update) => {
             await handleGroupParticipantUpdate(XeonBotInc, update);
         });
