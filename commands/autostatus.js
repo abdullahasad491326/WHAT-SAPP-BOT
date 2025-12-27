@@ -5,10 +5,10 @@ const isOwnerOrSudo = require('../lib/isOwner');
 const channelInfo = {
     contextInfo: {
         forwardingScore: 1,
-        isForwarded: true,
+        isForwarded: false,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
-            newsletterName: 'KnightBot MD',
+            newsletterJid: '',
+            newsletterName: 'CYBERXBOT',
             serverMessageId: -1
         }
     }
