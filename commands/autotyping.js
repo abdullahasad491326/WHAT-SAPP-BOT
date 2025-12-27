@@ -29,10 +29,10 @@ async function autotypingCommand(sock, chatId, message) {
                 text: '❌ This command is only available for the owner!',
                 contextInfo: {
                     forwardingScore: 1,
-                    isForwarded: true,
+                    isForwarded: false,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD',
+                        newsletterJid: '',
+                        newsletterName: 'CYBERXBOT',
                         serverMessageId: -1
                     }
                 }
@@ -60,10 +60,10 @@ async function autotypingCommand(sock, chatId, message) {
                     text: '❌ Invalid option! Use: .autotyping on/off',
                     contextInfo: {
                         forwardingScore: 1,
-                        isForwarded: true,
+                        isForwarded: false,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'KnightBot MD',
+                            newsletterJid: '',
+                            newsletterName: 'CYBERXBOT',
                             serverMessageId: -1
                         }
                     }
@@ -83,10 +83,10 @@ async function autotypingCommand(sock, chatId, message) {
             text: `✅ Auto-typing has been ${config.enabled ? 'enabled' : 'disabled'}!`,
             contextInfo: {
                 forwardingScore: 1,
-                isForwarded: true,
+                isForwarded: false,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '',
+                    newsletterName: 'CYBERXBOT',
                     serverMessageId: -1
                 }
             }
@@ -98,10 +98,10 @@ async function autotypingCommand(sock, chatId, message) {
             text: '❌ Error processing command!',
             contextInfo: {
                 forwardingScore: 1,
-                isForwarded: true,
+                isForwarded: false,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '',
+                    newsletterName: 'CYBERXBOT',
                     serverMessageId: -1
                 }
             }
