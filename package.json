@@ -73,6 +73,7 @@
     "ytdl-core": "^4.11.5"
   },
   "overrides": {
+    "undici": "5.28.4",
     "file-type": "^16.5.4",
     "jimp": "^1.6.0",
     "p-queue": "^6.6.2",
